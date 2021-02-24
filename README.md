@@ -8,10 +8,11 @@ import org.motdinfo.utils.MotdInfoManager;
 import org.motdinfo.utils.WebData;
 import org.motdinfo.utils.GetValue;
 
+
 /**
 * 获取服务器IP
 * */
-class Demo{
+class Demo implements Listener{
     public void demo(){
         //获取服务器IP
         MotdInfoManager.getServerIp();
@@ -21,6 +22,16 @@ class Demo{
         //向网站发送数据
         MotdInfoManager.sendWebData(data);
     }
+    
+    @EventHandler
+     public void onMotdInfoGet(MotdInfoMessageEvent event){
+         //demo 这里是监听
+     }
+         
+     @EventHandler
+     public void onMotdInfoSend(MotdInfoMessageEvent event){
+         //demo 这里是发送的时候
+     }   
 }
 
 
