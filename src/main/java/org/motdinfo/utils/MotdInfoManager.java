@@ -18,6 +18,9 @@ import java.util.LinkedHashMap;
  */
 public class MotdInfoManager {
 
+    /**
+     * 获取服务器ip
+     * */
     public static String getServerIp(){
         return BaseWebTools.getInstance().getIp();
     }
