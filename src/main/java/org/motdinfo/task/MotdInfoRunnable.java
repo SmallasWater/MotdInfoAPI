@@ -2,7 +2,6 @@ package org.motdinfo.task;
 
 import cn.nukkit.Player;
 import cn.nukkit.plugin.Plugin;
-import org.motdinfo.utils.GetValue;
 import org.motdinfo.utils.MotdInfoManager;
 import org.motdinfo.utils.PlayerData;
 import org.motdinfo.utils.WebData;
@@ -34,8 +33,7 @@ public class MotdInfoRunnable<T extends Plugin> implements Runnable {
                 players.add(new PlayerData(player).get());
             }
             WebData data = new WebData();
-            data.put(new GetValue("players",players.toString()));
-            data.put(new GetValue("plugins",getMotdInfo().getServer().getPluginManager().getPlugins().keySet().toString()));
+            data.put("players",players.toString()).put("plugins",getMotdInfo().getServer().getPluginManager().getPlugins().keySet().toString());
             MotdInfoManager.sendWebData(data);
             try {
                 Thread.sleep(1000 *60 * 5);

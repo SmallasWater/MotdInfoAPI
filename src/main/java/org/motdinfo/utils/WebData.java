@@ -2,8 +2,6 @@ package org.motdinfo.utils;
 
 import com.google.gson.Gson;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 
 /**
  * @author SmallasWater
@@ -12,20 +10,24 @@ import java.util.Arrays;
  */
 public class WebData {
 
-    private ArrayList<GetValue> data = new ArrayList<>();
+    private GetValue data;
 
-    public WebData(GetValue getValue){
-        put(getValue);
+    public WebData(GetValue data){
+        this.data = data;
     }
 
-    public WebData(){}
-
-    public void putAll(GetValue... getValues){
-        data.addAll(Arrays.asList(getValues));
+    public WebData(){
+        this.data = new GetValue();
     }
 
-    public void put(GetValue getValue){
-        data.add(getValue);
+    public WebData put(String key,String value){
+        data.put(key, value);
+        return this;
+    }
+
+
+    public GetValue getData() {
+        return data;
     }
 
     @Override
@@ -36,4 +38,5 @@ public class WebData {
         }
         return "";
     }
+
 }

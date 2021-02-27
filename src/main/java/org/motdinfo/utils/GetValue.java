@@ -14,5 +14,9 @@ public class GetValue extends LinkedHashMap<String, String> {
         put(name, value);
     }
 
+    GetValue(){}
+
+
+
 
 }

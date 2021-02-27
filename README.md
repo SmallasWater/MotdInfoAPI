@@ -18,7 +18,7 @@ class Demo implements Listener{
         MotdInfoManager.getServerIp();
         //数据包
         WebData data = new WebData();
-        data.put(new GetValue("键","值"));
+        data.put("键","值");
         //向网站发送数据
         MotdInfoManager.sendWebData(data);
     }
