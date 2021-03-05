@@ -14,6 +14,7 @@ public class MotdInfoListener implements Listener {
     @EventHandler
     public void onMotdInfoGet(MotdInfoMessageEvent event){
         //demo 这里是监听
+
     }
 
     @EventHandler

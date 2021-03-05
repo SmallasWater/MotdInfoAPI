@@ -22,6 +22,7 @@ import java.text.SimpleDateFormat;
 
 import java.util.Date;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -48,29 +49,6 @@ abstract class BaseWebTools {
 
     private static final String URL = "https://motd.52craft.cc/api/?token={token}";
 
-    /**
-     * 获取服务器IP
-     *
-     * @return IP地址
-     * */
-    String getIp(){
-        ConfigSection get = loadJson();
-        if(get.isEmpty()){
-            return "0.0.0.0";
-        }
-
-        Map m = (Map) get.get("client");
-        return m.get("ip").toString();
-    }
-
-    String getVersion(){
-        ConfigSection get = loadJson();
-        if(get.isEmpty()){
-            return "0.0.0.0";
-        }
-        Map m = (Map) get.get("client");
-        return m.get("ip").toString();
-    }
 
     /***
      * */
@@ -90,7 +68,8 @@ abstract class BaseWebTools {
 
 
     private ConfigSection push(Gson gson, Map<String, Object> tokenMap) {
-        String token = encrypt(gson.toJson(tokenMap).replace("\"[","[").replace("\"]","] "), MotdInfoAPI.getKey(),true);
+        String json = gson.toJson(tokenMap).replace("\"\\[","[").replace("\\]\"","]");
+        String token = encrypt(json, MotdInfoAPI.getKey(),true);
         String load = loadJson(token);
         return new ConfigSection(gson.fromJson(load, (new TypeToken<LinkedHashMap<String, Object>>() {
         }).getType()));
@@ -105,7 +84,6 @@ abstract class BaseWebTools {
             uc.setRequestMethod("GET");
             uc.setConnectTimeout(15000);
             uc.setReadTimeout(15000);
-
             BufferedReader in = new BufferedReader(new InputStreamReader(uc.getInputStream(), StandardCharsets.UTF_8));
             String inputLine;
             while ( (inputLine = in.readLine()) != null) {
@@ -135,7 +113,6 @@ abstract class BaseWebTools {
         try {
             if(operation) {
                  byte[] encrypted = encryption(input,key,Cipher.ENCRYPT_MODE);
-
                  return URLEncoder.encode(new String(base64.encode(encrypted)).replace("\\", "\\\\"),"UTF-8").replace("%0D%0A","");
             }else{
                  byte[] encrypted = encryption(input,key,Cipher.DECRYPT_MODE);
@@ -150,6 +127,7 @@ abstract class BaseWebTools {
         }
         return null;
     }
+
 
     /**使用md5加密字符串*/
     private String getMd5(String plainText) {

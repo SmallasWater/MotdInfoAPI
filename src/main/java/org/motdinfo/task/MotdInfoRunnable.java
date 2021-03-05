@@ -2,7 +2,6 @@ package org.motdinfo.task;
 
 import cn.nukkit.Player;
 import cn.nukkit.plugin.Plugin;
-import org.motdinfo.MotdInfoAPI;
 import org.motdinfo.utils.MotdInfoManager;
 import org.motdinfo.utils.PlayerData;
 import org.motdinfo.utils.WebData;

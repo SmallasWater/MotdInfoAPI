@@ -38,7 +38,7 @@ public class MotdInfoAPI extends PluginBase {
         getLogger().info(TextFormat.colorize('&',"&e本插件运行于&a "+
                 IP+":"
                 +getServer().getPort()+" &e服务端上"));
-        getLogger().info(TextFormat.colorize('&',"&b网页版本: &f"+webInfo.getVersion()));
+        getLogger().info(TextFormat.colorize('&',"&b网页版本: &f"+webInfo.getVersion())+"\n");
         getLogger().info(TextFormat.colorize('&',"&e---------------------\n\n"));
         boolean privacy = getConfig().getBoolean("privacy", true);
         if(privacy) {
@@ -51,6 +51,10 @@ public class MotdInfoAPI extends PluginBase {
 
     public WebInfo getWebInfo() {
         return webInfo;
+    }
+
+    public static MotdInfoAPI getInfoAPI() {
+        return infoAPI;
     }
 
     public static String getKey(){
