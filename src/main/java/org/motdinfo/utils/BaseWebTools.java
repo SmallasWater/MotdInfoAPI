@@ -33,6 +33,8 @@ import java.util.Map;
  */
 abstract class BaseWebTools {
 
+
+
     private BaseWebTools(){
     }
 
@@ -52,16 +54,21 @@ abstract class BaseWebTools {
      * @return IP地址
      * */
     String getIp(){
-        GsonBuilder builder = new GsonBuilder();
-        Gson gson = builder.create();
-        String get = loadJson();
-        if(get == null){
+        ConfigSection get = loadJson();
+        if(get.isEmpty()){
             return "0.0.0.0";
         }
-        ConfigSection configSection = new ConfigSection(gson.fromJson(get, (new TypeToken<LinkedHashMap<String, Object>>() {
-        }).getType()));
 
-        Map m = (Map) configSection.get("client");
+        Map m = (Map) get.get("client");
+        return m.get("ip").toString();
+    }
+
+    String getVersion(){
+        ConfigSection get = loadJson();
+        if(get.isEmpty()){
+            return "0.0.0.0";
+        }
+        Map m = (Map) get.get("client");
         return m.get("ip").toString();
     }
 
@@ -76,16 +83,23 @@ abstract class BaseWebTools {
         tokenMap.put("port",MotdInfoAPI.PORT);
         tokenMap.put("data",data.toString());
         tokenMap.put("interface","//"+MotdInfoAPI.IP+"/api");
-        String token = encrypt(gson.toJson(tokenMap),MotdInfoAPI.getKey(),true);
-        String load = loadJson(token,URL);
+        //修复引号问题
+        return push(gson, tokenMap);
+    }
+
+
+
+    private ConfigSection push(Gson gson, Map<String, Object> tokenMap) {
+        String token = encrypt(gson.toJson(tokenMap).replace("\"[","[").replace("\"]","] "), MotdInfoAPI.getKey(),true);
+        String load = loadJson(token);
         return new ConfigSection(gson.fromJson(load, (new TypeToken<LinkedHashMap<String, Object>>() {
         }).getType()));
     }
 
-    private String loadJson (String token,String url) {
+    private String loadJson(String token) {
         StringBuilder json = new StringBuilder();
         try {
-            URL urlObject = new URL(url.replace("{token}",token));
+            URL urlObject = new URL(BaseWebTools.URL.replace("{token}",token));
             HttpURLConnection uc = (HttpURLConnection) urlObject.openConnection();
             uc.addRequestProperty(".USER_AGENT","Mozilla/5.0 (X11; U; Linux i686; zh-CN; rv:1.9.1.2) Gecko/20090803 java");
             uc.setRequestMethod("GET");
@@ -104,8 +118,12 @@ abstract class BaseWebTools {
         }
         return json.toString();
     }
-    private String loadJson () {
-        return loadJson("","https://motd.52craft.cc/api");
+    ConfigSection loadJson () {
+        GsonBuilder builder = new GsonBuilder();
+        Gson gson = builder.create();
+        Map<String, Object> tokenMap = new LinkedHashMap<>();
+        tokenMap.put("d","session");
+        return push(gson,tokenMap);
     }
 
     /**加密 / 解密*/
@@ -117,6 +135,7 @@ abstract class BaseWebTools {
         try {
             if(operation) {
                  byte[] encrypted = encryption(input,key,Cipher.ENCRYPT_MODE);
+
                  return URLEncoder.encode(new String(base64.encode(encrypted)).replace("\\", "\\\\"),"UTF-8").replace("%0D%0A","");
             }else{
                  byte[] encrypted = encryption(input,key,Cipher.DECRYPT_MODE);

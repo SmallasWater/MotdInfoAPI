@@ -1,12 +1,11 @@
 package org.motdinfo;
 
 import cn.nukkit.plugin.PluginBase;
-import cn.nukkit.utils.Config;
 import cn.nukkit.utils.TextFormat;
 import org.motdinfo.task.MotdInfoRunnable;
 import org.motdinfo.utils.MotdInfoManager;
+import org.motdinfo.utils.WebInfo;
 
-import java.util.Scanner;
 import java.util.concurrent.*;
 
 /**
@@ -23,6 +22,8 @@ public class MotdInfoAPI extends PluginBase {
 
     private static MotdInfoAPI infoAPI;
 
+    private WebInfo webInfo;
+
     private static ExecutorService executor = Executors.newCachedThreadPool();
 
     @Override
@@ -30,12 +31,14 @@ public class MotdInfoAPI extends PluginBase {
         saveDefaultConfig();
         reloadConfig();
         infoAPI = this;
-        IP = MotdInfoManager.getServerIp();
+        webInfo = MotdInfoManager.getWebInfo();
+        IP = webInfo.getLoginIp();
         PORT = getServer().getPort();
         getLogger().info(TextFormat.colorize('&',"&e---------------------\n"));
-        getLogger().info("本插件运行于 "+
+        getLogger().info(TextFormat.colorize('&',"&e本插件运行于&a "+
                 IP+":"
-                +getServer().getPort()+" 服务端上\n");
+                +getServer().getPort()+" &e服务端上"));
+        getLogger().info(TextFormat.colorize('&',"&b网页版本: &f"+webInfo.getVersion()));
         getLogger().info(TextFormat.colorize('&',"&e---------------------\n\n"));
         boolean privacy = getConfig().getBoolean("privacy", true);
         if(privacy) {
@@ -46,6 +49,9 @@ public class MotdInfoAPI extends PluginBase {
 
     }
 
+    public WebInfo getWebInfo() {
+        return webInfo;
+    }
 
     public static String getKey(){
         return infoAPI.getConfig().getString("key","69dcff60ade65ebb803b1b56ba6a3874");

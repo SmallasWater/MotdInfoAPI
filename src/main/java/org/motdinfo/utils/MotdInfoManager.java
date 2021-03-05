@@ -25,6 +25,10 @@ public class MotdInfoManager {
         return BaseWebTools.getInstance().getIp();
     }
 
+    public static WebInfo getWebInfo(){
+        return new WebInfo(BaseWebTools.getInstance().loadJson());
+    }
+
     /**
      * 向服务器发送请求
      * */

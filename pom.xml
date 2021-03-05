@@ -6,7 +6,7 @@
 
     <groupId>org.motdinfoapi</groupId>
     <artifactId>MotdInfoAPI</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
     <dependencies>
         <dependency>
             <groupId>cn.nukkit</groupId>
