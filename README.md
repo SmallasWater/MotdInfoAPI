@@ -2,11 +2,11 @@
     <img src="https://img.shields.io/github/v/release/SmallasWater/MotdInfoAPI?include_prereleases" alt="Latest release">
 </a>  
 
-# MotdInfoAPI  
-#### **介绍**  
+#MotdInfoAPI  
+####**介绍**  
  这是一款应用于 Motd网站的 API插件可以通过本插件可以向网站对接 实现部分功能  
  
-#### **使用方法:**
+####**使用方法:**
 ```java
 import org.motdinfo.utils.MotdInfoManager;
 import org.motdinfo.utils.WebData;
