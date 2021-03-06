@@ -130,13 +130,11 @@ abstract class BaseWebTools {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMddHH");
         Date date = new Date();
         key = getMd5(simpleDateFormat.format(date)+key);
-//        Base64 base64 = new Base64(128);
         try {
             if(operation) {
                  byte[] encrypted = encryption(input,key,Cipher.ENCRYPT_MODE);
                  byte[] tobase = base64Encode(encrypted);
                  return URLEncoder.encode(new String(tobase).replace("\\", "\\\\"),"UTF-8").replace("%0D%0A","");
-//                 return URLEncoder.encode(new String(base64.encode(encrypted)).replace("\\", "\\\\"),"UTF-8").replace("%0D%0A","");
             }else{
                  byte[] encrypted = encryption(input,key,Cipher.DECRYPT_MODE);
                  if(encrypted == null){
@@ -192,8 +190,6 @@ abstract class BaseWebTools {
             IvParameterSpec iv = new IvParameterSpec(encryptKey.getBytes());
             cipher.init(mode, skeySpec, iv);
             if(mode == Cipher.DECRYPT_MODE){
-//                Base64 base64 = new Base64(128);
-//                byte[] encrypted1 = base64.decode(input);
                 byte[] encrypted1 = base64Decode(input);
                 try {
                     return  cipher.doFinal(encrypted1);
@@ -215,63 +211,5 @@ abstract class BaseWebTools {
     private byte[] base64Decode(String s){
         return Base64.getMimeDecoder().decode(s);
     }
-
-
-//    static String jsonToString(Object o){
-//        String s = "";
-//        s += jsonToString(o,s);
-//        System.out.println("to:" +s);
-//        return s;
-//    }
-//
-//    private static String jsonToString(Object o,String s){
-//        if(o instanceof Map){
-//            s += "{";
-////            StringBuilder sBuilder = new StringBuilder(s);
-//            StringBuilder sBuilder = new StringBuilder(s);
-//            for(Object mapEntry:((Map) o).keySet()){
-//                String objectString = "";
-//                Object get = ((Map) o).get(mapEntry);
-//                objectString += "\""+mapEntry.toString()+"\"";
-//                objectString += ":";
-//                if(get != null) {
-//                    objectString += jsonToString(get, "");
-//                }
-//                sBuilder.append(objectString);
-////                sBuilder.append(",");
-//
-////                sBuilder.append("\"").append(mapEntry.toString()).append("\"");
-////                sBuilder.append(":");
-////                Object get = ((Map) o).get(mapEntry);
-////                if(get != null) {
-////                    sBuilder.append(jsonToString(get, objectString));
-////                }
-////                sBuilder.append(",");
-//
-//            }
-//            s = sBuilder.toString();
-//            s += "}";
-//            s = s.replace(":}","}").replace("=",":").replace(",}","}");
-//        }else
-//        if(o instanceof List){
-//            s += "[";
-//            StringBuilder sBuilder = new StringBuilder(s);
-//            for(Object stringList: (List)o){
-//                String objectString = "";
-//                objectString += jsonToString(stringList,"");
-////                sBuilder.append(jsonToString(stringList, objectString));
-////                sBuilder.append(",");
-//                sBuilder.append(objectString);
-//                sBuilder.append(",");
-//            }
-//            s = sBuilder.toString();
-//            s += "]";
-//            s = s.replace(",]","]");
-//        }else {
-//            s += "\"" + o.toString() + "\"";
-//        }
-//
-//        return s;
-//    }
 
 }
