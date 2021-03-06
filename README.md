@@ -1,6 +1,6 @@
 <a href="https://github.com/SmallasWater/MotdInfoAPI/releases/latest" alt="Latest release">
     <img src="https://img.shields.io/github/v/release/SmallasWater/MotdInfoAPI?include_prereleases" alt="Latest release">
-</a>
+</a>  
 
 # MotdInfoAPI  
 #### **介绍**  
