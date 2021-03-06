@@ -16,7 +16,7 @@ import java.util.concurrent.*;
 public class MotdInfoAPI extends PluginBase {
 
 
-    private static final String PLUGIN_VERSION = "0.2";
+    private static final String PLUGIN_VERSION = "1.0.2";
     public static String IP;
 
     public static int PORT;
