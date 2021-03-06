@@ -34,6 +34,9 @@ class Demo implements Listener{
      }   
 }
 
-
 ```
+#### **下载**  
+<a href="https://github.com/SmallasWater/MotdInfoAPI/releases/latest" alt="Latest release">
+ v1.0.2
+</a>
  

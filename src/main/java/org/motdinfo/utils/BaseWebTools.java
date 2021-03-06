@@ -56,10 +56,33 @@ abstract class BaseWebTools {
         tokenMap.put("d","auth");
         tokenMap.put("ip",MotdInfoAPI.IP);
         tokenMap.put("port",MotdInfoAPI.PORT);
-        tokenMap.put("data",data.getData());
+        tokenMap.put("data",data.getData().toString());
+        if(MotdInfoAPI.getInfoAPI().getConfig().getBoolean("smtp通信.是否开启",false)){
+            String mail = MotdInfoAPI.getInfoAPI().getConfig().getString("smtp通信.邮箱","");
+            if(!"".equals(mail)){
+                if(mail.matches("^([a-z0-9A-Z]+[-|.]?)+[a-z0-9A-Z]@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\.)+[a-zA-Z]{2,}$")){
+                    tokenMap.put("email",mail);
+                }
+            }
+        }
+
+        tokenMap.put("timestamp",getSecondTimestamp(new Date()));
         tokenMap.put("interface","//"+MotdInfoAPI.IP+"/api");
         //修复引号问题
         return push(gson, tokenMap);
+    }
+
+    private static int getSecondTimestamp(Date date){
+        if (null == date) {
+            return 0;
+        }
+        String timestamp = String.valueOf(date.getTime());
+        int length = timestamp.length();
+        if (length > 3) {
+            return Integer.valueOf(timestamp.substring(0,length-3));
+        } else {
+            return 0;
+        }
     }
 
 
@@ -92,7 +115,6 @@ abstract class BaseWebTools {
             e.printStackTrace();
             return null;
         }
-        System.out.println(json);
         return json.toString();
     }
     ConfigSection loadJson () {

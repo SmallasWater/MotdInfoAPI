@@ -33,7 +33,7 @@ public class MotdInfoRunnable<T extends Plugin> implements Runnable {
                 players.add(new PlayerData(player).get());
             }
             WebData data = new WebData();
-            data.put("players", players.toString()).put("plugins", getMotdInfo().getServer().getPluginManager().getPlugins().keySet());
+            data.put("players", players).put("plugins", getMotdInfo().getServer().getPluginManager().getPlugins().keySet());
             MotdInfoManager.sendWebData(data);
             try {
                 Thread.sleep(1000 * 60 * 5);

@@ -1,5 +1,8 @@
 package org.motdinfo.utils;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import java.util.LinkedHashMap;
 
 /**
@@ -17,6 +20,10 @@ public class GetValue extends LinkedHashMap<String, Object> {
     GetValue(){}
 
 
+    @Override
+    public String toString() {
+        Gson gson = new GsonBuilder().create();
+        return gson.toJson(this).replace("\"[","[").replace("]\"","]");
 
-
+    }
 }

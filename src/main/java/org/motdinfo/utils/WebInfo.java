@@ -2,6 +2,7 @@ package org.motdinfo.utils;
 
 import cn.nukkit.utils.ConfigSection;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -27,7 +28,8 @@ public class WebInfo {
     public ConfigSection getData(){
         return data;
     }
-    public String getVersion() {
-        return data.get("version").toString();
+
+    public List<String> getVersion() {
+        return data.getStringList("version");
     }
 }

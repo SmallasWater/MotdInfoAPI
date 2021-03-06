@@ -18,8 +18,8 @@ public class PlayerData {
 
     public LinkedHashMap<String, String> get(){
         LinkedHashMap<String, String> map = new LinkedHashMap<>();
-        map.put("name",player.getName());
-        map.put("uuid",player.getUniqueId().toString());
+        map.put("name",""+player.getName()+"");
+        map.put("uuid",""+player.getUniqueId().toString()+"");
         return map;
     }
 }
