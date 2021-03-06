@@ -20,7 +20,7 @@ public class WebData {
         this.data = new GetValue();
     }
 
-    public WebData put(String key,String value){
+    public WebData put(String key,Object value){
         data.put(key, value);
         return this;
     }
@@ -30,13 +30,6 @@ public class WebData {
         return data;
     }
 
-    @Override
-    public String toString() {
-        if(data.size() > 0) {
-            Gson gson = new Gson();
-            return gson.toJson(data);
-        }
-        return "";
-    }
+
 
 }

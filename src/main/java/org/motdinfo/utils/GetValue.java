@@ -7,10 +7,10 @@ import java.util.LinkedHashMap;
  * Create on 2021/2/22 19:28
  * Package org.motdinfo.utils
  */
-public class GetValue extends LinkedHashMap<String, String> {
+public class GetValue extends LinkedHashMap<String, Object> {
 
 
-    public GetValue(String name,String value){
+    public GetValue(String name,Object value){
         put(name, value);
     }
 
