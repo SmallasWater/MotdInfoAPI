@@ -115,7 +115,6 @@ abstract class BaseWebTools {
             e.printStackTrace();
             return null;
         }
-        System.out.println("json: "+json);
         return json.toString();
     }
     ConfigSection loadJson () {
