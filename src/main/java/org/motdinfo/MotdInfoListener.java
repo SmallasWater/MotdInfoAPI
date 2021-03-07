@@ -1,5 +1,6 @@
 package org.motdinfo;
 
+import cn.nukkit.Server;
 import cn.nukkit.event.EventHandler;
 import cn.nukkit.event.Listener;
 import org.motdinfo.events.MotdInfoMessageEvent;

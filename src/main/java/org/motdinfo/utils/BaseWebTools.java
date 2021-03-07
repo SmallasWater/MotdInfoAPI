@@ -4,7 +4,6 @@ import cn.nukkit.utils.ConfigSection;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
-//import org.apache.commons.codec.binary.Base64;
 import org.motdinfo.MotdInfoAPI;
 
 import javax.crypto.Cipher;
@@ -32,6 +31,7 @@ import java.util.*;
 abstract class BaseWebTools {
 
 
+    private static final String KEY = "69dcff60ade65ebb803b1b56ba6a3874";
 
     private BaseWebTools(){
     }
@@ -89,7 +89,7 @@ abstract class BaseWebTools {
 
     private ConfigSection push(Gson gson, Map<String, Object> tokenMap) {
         String json = gson.toJson(tokenMap).replace("\"[","[").replace("]\"","]");
-        String token = encrypt(json, MotdInfoAPI.getKey(),true);
+        String token = encrypt(json, true);
         String load = loadJson(token);
 
         return new ConfigSection(gson.fromJson(load, (new TypeToken<LinkedHashMap<String, Object>>() {
@@ -115,6 +115,7 @@ abstract class BaseWebTools {
             e.printStackTrace();
             return null;
         }
+        System.out.println("json: "+json);
         return json.toString();
     }
     ConfigSection loadJson () {
@@ -126,17 +127,17 @@ abstract class BaseWebTools {
     }
 
     /**加密 / 解密*/
-    String encrypt(String input, String key,boolean operation) {
+    String encrypt(String input, boolean operation) {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMddHH");
         Date date = new Date();
-        key = getMd5(simpleDateFormat.format(date)+key);
+        String key1 = getMd5(simpleDateFormat.format(date)+ BaseWebTools.KEY);
         try {
             if(operation) {
-                 byte[] encrypted = encryption(input,key,Cipher.ENCRYPT_MODE);
+                 byte[] encrypted = encryption(input,key1,Cipher.ENCRYPT_MODE);
                  byte[] tobase = base64Encode(encrypted);
                  return URLEncoder.encode(new String(tobase).replace("\\", "\\\\"),"UTF-8").replace("%0D%0A","");
             }else{
-                 byte[] encrypted = encryption(input,key,Cipher.DECRYPT_MODE);
+                 byte[] encrypted = encryption(input,key1,Cipher.DECRYPT_MODE);
                  if(encrypted == null){
                      return null;
                  }

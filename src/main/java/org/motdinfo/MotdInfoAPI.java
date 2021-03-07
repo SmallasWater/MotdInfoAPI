@@ -16,7 +16,7 @@ import java.util.concurrent.*;
 public class MotdInfoAPI extends PluginBase {
 
 
-    private static final String PLUGIN_VERSION = "1.0.2";
+//    private static final String PLUGIN_VERSION = "1.0.3";
     public static String IP;
 
     public static int PORT;
@@ -35,7 +35,7 @@ public class MotdInfoAPI extends PluginBase {
         webInfo = MotdInfoManager.getWebInfo();
         IP = webInfo.getLoginIp();
         PORT = getServer().getPort();
-        if(!webInfo.getVersion().contains(PLUGIN_VERSION)){
+        if(!webInfo.getVersion().contains(this.getDescription().getVersion())){
             getLogger().info(TextFormat.colorize('&',"&c插件过低！请前往: https://github.com/SmallasWater/MotdInfoAPI 下载最新版本"));
             this.getServer().getPluginManager().disablePlugin(this);
             return;
@@ -44,7 +44,7 @@ public class MotdInfoAPI extends PluginBase {
         getLogger().info(TextFormat.colorize('&',"&e本插件运行于&a "+
                 IP+":"
                 +getServer().getPort()+" &e服务端上"));
-        getLogger().info(TextFormat.colorize('&',"&b插件版本: &f"+PLUGIN_VERSION)+"\n");
+        getLogger().info(TextFormat.colorize('&',"&b插件版本: &f"+this.getDescription().getVersion())+"\n");
         getLogger().info(TextFormat.colorize('&',"&e---------------------\n\n"));
         boolean privacy = getConfig().getBoolean("privacy", true);
         if(privacy) {
@@ -61,10 +61,6 @@ public class MotdInfoAPI extends PluginBase {
 
     public static MotdInfoAPI getInfoAPI() {
         return infoAPI;
-    }
-
-    public static String getKey(){
-        return infoAPI.getConfig().getString("key","69dcff60ade65ebb803b1b56ba6a3874");
     }
 
     @Override

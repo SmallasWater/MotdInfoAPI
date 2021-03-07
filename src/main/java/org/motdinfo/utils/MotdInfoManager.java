@@ -39,13 +39,15 @@ public class MotdInfoManager {
             return;
         }
         ConfigSection section = BaseWebTools.getInstance().send(webData);
-        Server.getInstance().getPluginManager().callEvent(new MotdInfoMessageEvent(section));
+        if(!section.isEmpty()){
+            Server.getInstance().getPluginManager().callEvent(new MotdInfoMessageEvent(section));
+        }
     }
 
     public static ConfigSection decipherWebData(String data){
         GsonBuilder builder = new GsonBuilder();
         Gson gson = builder.create();
-        return new ConfigSection(gson.fromJson(BaseWebTools.getInstance().encrypt(data, MotdInfoAPI.getKey(),false), (new TypeToken<LinkedHashMap<String, Object>>() {
+        return new ConfigSection(gson.fromJson(BaseWebTools.getInstance().encrypt(data, false), (new TypeToken<LinkedHashMap<String, Object>>() {
         }).getType()));
     }
 }

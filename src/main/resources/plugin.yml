@@ -1,7 +1,7 @@
 name: MotdInfoAPI
 main: org.motdinfo.MotdInfoAPI
-version: 1.0.2
+version: 1.0.3
 author: 若水
 load: STARTUP
 api:
-  - 1.1.0
+  - 1.0.11
